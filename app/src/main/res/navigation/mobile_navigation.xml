@@ -3,29 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_transform">
+    app:startDestination="@id/cargarFragment">
 
     <fragment
-        android:id="@+id/nav_transform"
-        android:name="com.vertacnik.tp4_productos.ui.transform.TransformFragment"
-        android:label="@string/menu_transform"
-        tools:layout="@layout/fragment_transform" />
-
+        android:id="@+id/cargarFragment"
+        android:name="com.vertacnik.tp4_productos.ui.cargar.CargarFragment"
+        android:label="Cargar Producto"
+        tools:layout="@layout/fragment_cargar" />
     <fragment
-        android:id="@+id/nav_reflow"
-        android:name="com.vertacnik.tp4_productos.ui.reflow.ReflowFragment"
-        android:label="@string/menu_reflow"
-        tools:layout="@layout/fragment_reflow" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.vertacnik.tp4_productos.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.vertacnik.tp4_productos.ui.settings.SettingsFragment"
-        android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+        android:id="@+id/listaFragment"
+        android:name="com.vertacnik.tp4_productos.ui.listar.ListaFragment"
+        android:label="Lista de Productos"
+        tools:layout="@layout/fragment_lista" />
 </navigation>

@@ -1,11 +1,10 @@
 package com.vertacnik.tp4_productos;
 
+import androidx.appcompat.app.AlertDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Menu;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -16,10 +15,17 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.vertacnik.tp4_productos.databinding.ActivityMainBinding;
+import com.vertacnik.tp4_productos.databinding.ActivityMainBinding;import com.vertacnik.tp4_productos.ui.model.Producto;import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static ArrayList<Producto> productos = new ArrayList<>();
+
+    static {
+        productos.add(new Producto("001", "Leche", 2500));
+        productos.add(new Producto("002", "Azúcar 1kg", 1200));
+        productos.add(new Producto("003", "Frásco de Café", 6000));
+    }
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
@@ -30,32 +36,64 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarMain.toolbar);
-        if (binding.appBarMain.fab != null) {
-            binding.appBarMain.fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).setAnchorView(R.id.fab).show());
-        }
+
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_content_main);
         assert navHostFragment != null;
+        // Cambio para la hamburger
         NavController navController = navHostFragment.getNavController();
 
-        NavigationView navigationView = binding.navView;
-        if (navigationView != null) {
-            mAppBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow, R.id.nav_settings)
-                    .setOpenableLayout(binding.drawerLayout)
-                    .build();
-            NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-            NavigationUI.setupWithNavController(navigationView, navController);
-        }
+        mAppBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.cargarFragment,
+                R.id.listaFragment
+        )
+                .setOpenableLayout(binding.drawerLayout)
+                .build();
 
-        BottomNavigationView bottomNavigationView = binding.appBarMain.contentMain.bottomNavView;
-        if (bottomNavigationView != null) {
-            mAppBarConfiguration = new AppBarConfiguration.Builder(
-                    R.id.nav_transform, R.id.nav_reflow, R.id.nav_slideshow)
-                    .build();
-            NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-            NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        }
+        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+
+        binding.navView.setNavigationItemSelectedListener(item -> {
+
+            if (item.getItemId() == R.id.nav_salir) {
+
+                new AlertDialog.Builder(this)
+                        .setTitle("Salir")
+                        .setMessage("¿Estás seguro que querés cerrar la aplicación?")
+                        .setPositiveButton("Sí", (dialog, which) -> finishAffinity())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .setCancelable(false)
+                        .show();
+
+                binding.drawerLayout.closeDrawers();
+                return true;
+            }
+
+            boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+
+            if (handled) {
+                binding.drawerLayout.closeDrawers();
+            }
+
+            return handled;
+        });
+
+        // Button Navigation
+        binding.appBarMain.contentMain.bottomNavView.setOnItemSelectedListener(item -> {
+
+            if (item.getItemId() == R.id.nav_salir) {
+
+                new androidx.appcompat.app.AlertDialog.Builder(this)
+                        .setTitle("Salir")
+                        .setMessage("¿Estás seguro que querés cerrar la aplicación?")
+                        .setPositiveButton("Sí", (dialog, which) -> finishAffinity())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .setCancelable(false)
+                        .show();
+
+                return true;
+            }
+
+            return NavigationUI.onNavDestinationSelected(item, navController);
+        });
     }
 
     @Override
