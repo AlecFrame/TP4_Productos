@@ -1,5 +1,6 @@
 package com.vertacnik.tp4_productos;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -16,6 +17,8 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.vertacnik.tp4_productos.databinding.ActivityMainBinding;import com.vertacnik.tp4_productos.ui.model.Producto;import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
         binding.navView.setNavigationItemSelectedListener(item -> {
 
             if (item.getItemId() == R.id.nav_salir) {
-
                 new AlertDialog.Builder(this)
                         .setTitle("Salir")
                         .setMessage("¿Estás seguro que querés cerrar la aplicación?")
@@ -62,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                         .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
                         .setCancelable(false)
                         .show();
-
                 binding.drawerLayout.closeDrawers();
                 return true;
             }
@@ -76,12 +77,12 @@ public class MainActivity extends AppCompatActivity {
             return handled;
         });
 
-        // Button Navigation
+        /* Button Navigation - comentamos este código para dejar un ejemplo de cómo sería con el otro tipo de navegation
         binding.appBarMain.contentMain.bottomNavView.setOnItemSelectedListener(item -> {
 
             if (item.getItemId() == R.id.nav_salir) {
 
-                new androidx.appcompat.app.AlertDialog.Builder(this)
+                new AlertDialog.Builder(this)
                         .setTitle("Salir")
                         .setMessage("¿Estás seguro que querés cerrar la aplicación?")
                         .setPositiveButton("Sí", (dialog, which) -> finishAffinity())
@@ -94,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
             return NavigationUI.onNavDestinationSelected(item, navController);
         });
+        */
     }
 
     @Override

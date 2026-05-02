@@ -8,7 +8,7 @@ Es una aplicación sencilla e intuitiva para ver los productos en una lista y ca
 ---
 
 1. Activities:
-    * MainActivity: principal encargada de crear y decir como manejar los navegables, pusimos ambos navegables, el Lateral y el de Abajo.
+    * MainActivity: principal encargada de crear y decir como manejar los navegables, pusimos ambos navegables al principio, pero al final solo dejamos el Drawer y al otro lo comentamos.
 
 ---
 
